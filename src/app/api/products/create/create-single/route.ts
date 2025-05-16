@@ -3,6 +3,8 @@ import { connectToMongoDB } from "@/lib/db";
 import Products from "@/models/Products";
 import { generateSlug } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 
 // Custom error responses
 const errorResponse = (
@@ -111,6 +113,10 @@ export const POST = async (request: NextRequest) => {
       ingredientHighlights,
       
     });
+
+     const session = await getServerSession(authOptions);
+     console.log("User session backend ====================>:", session?.user);
+     const created_by = session?.user?._id;
 
     // Basic input validation
     if (!title || !description || !category || !brand || !price) {
@@ -243,6 +249,7 @@ export const POST = async (request: NextRequest) => {
       nothingButTheBestText,
       draft,
       purposeAndTrust,
+      created_by,
     });
 
     try {

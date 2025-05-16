@@ -257,36 +257,42 @@ const AdditionalFieldsForm: React.FC<Props> = ({ formState, onUpdate }) => {
 
         {/* Text Fields */}
         <h6>Text Sections</h6>
+        <div className="row">
         {Object.keys(labelMap)
           .filter((key) => key !== 'bannerImage1' && key !== 'bannerImage2' && key !== 'bannerImage3')
           .map((field) => (
-            <div key={field} className="mb-3">
+            <div key={field} className="mb-3 col-md-6">
               <label className="form-label">{labelMap[field] || field}</label>
-              <textarea
+              <input
                 className="form-control"
-                rows={2}
+                maxLength={50}
                 placeholder={`Enter ${labelMap[field]}`}
                 value={(formState as any)[field] || ''}
                 onChange={(e) => onUpdate(field, e.target.value)}
               />
             </div>
           ))}
+          </div>
 
         {/* Product Stories */}
         <div className="mb-4">
           <h6>Customer Stories</h6>
           {/* Stories Section Title */}
+          <label htmlFor="Stories Section Title">Stories Section Title</label>
           <input
+            maxLength={150}
             className="form-control mb-2"
             placeholder="Stories Section Title"
             value={formState?.productStories?.theStoriesTitle || ''}
             onChange={(e) => onUpdate('productStories', { ...formState.productStories, theStoriesTitle: e.target.value })}
           />
           {/* Stories List */}
+          <div className="row ">
           {(formState?.productStories?.stories || []).map((story, idx) => (
-            <div key={idx} className="border p-3 mb-2 rounded">
+            <div key={idx} className="border p-3 mb-2 rounded col-md-5 col-15">
               {/* Story Content */}
               <input
+                maxLength={30}
                 className="form-control mb-1"
                 placeholder="Story Content"
                 value={story.content}
@@ -298,6 +304,7 @@ const AdditionalFieldsForm: React.FC<Props> = ({ formState, onUpdate }) => {
               />
               {/* Story Name */}
               <input
+                maxLength={50}
                 className="form-control mb-1"
                 placeholder="Name"
                 value={story.name}
@@ -309,6 +316,7 @@ const AdditionalFieldsForm: React.FC<Props> = ({ formState, onUpdate }) => {
               />
               {/* Story Location */}
               <input
+                maxLength={100}
                 className="form-control mb-1"
                 placeholder="Location"
                 value={story.location}
@@ -336,6 +344,7 @@ const AdditionalFieldsForm: React.FC<Props> = ({ formState, onUpdate }) => {
               </button>
             </div>
           ))}
+          </div>
           {/* Add Story Button */}
           <button
             className="btn btn-sm btn-primary"
@@ -358,6 +367,7 @@ const AdditionalFieldsForm: React.FC<Props> = ({ formState, onUpdate }) => {
           <h6>Purpose and Trust</h6>
           {/* Prefix 1 */}
           <input
+            maxLength={30}
             className="form-control mb-2"
             placeholder="Prefix 1"
             value={formState?.purposeAndTrust?.prefix1 || "Built with"}
@@ -370,18 +380,20 @@ const AdditionalFieldsForm: React.FC<Props> = ({ formState, onUpdate }) => {
           />
           {/* Italic Word 1 */}
           <input
+            maxLength={30}
             className="form-control mb-2"
             placeholder="Italic Word 1"
             value={formState?.purposeAndTrust?.italicWord1 || "Purpose"}
             onChange={(e) =>
               onUpdate("purposeAndTrust", {
-                ...formState.purposeAndTrust,
+                ...formState?.purposeAndTrust,
                 italicWord1: e.target.value,
               })
             }
           />
           {/* Prefix 2 */}
           <input
+            maxLength={30}
             className="form-control mb-2"
             placeholder="Prefix 2"
             value={formState?.purposeAndTrust?.prefix2 || "Backed by"}
@@ -394,6 +406,7 @@ const AdditionalFieldsForm: React.FC<Props> = ({ formState, onUpdate }) => {
           />
           {/* Italic Word 2 */}
           <input
+            maxLength={30}
             className="form-control mb-2"
             placeholder="Italic Word 2"
             value={formState?.purposeAndTrust?.italicWord2 || "Trust"}
@@ -410,6 +423,7 @@ const AdditionalFieldsForm: React.FC<Props> = ({ formState, onUpdate }) => {
             <div key={idx} className="border p-3 mb-2 rounded">
               {/* Feature Title */}
               <input
+                maxLength={30}
                 className="form-control mb-1"
                 placeholder="Feature Title"
                 value={feature.title || ""}
@@ -424,6 +438,7 @@ const AdditionalFieldsForm: React.FC<Props> = ({ formState, onUpdate }) => {
               />
               {/* Feature Description */}
               <input className="form-control mb-1"
+                maxLength={30}
                 placeholder="Feature Description"
                 value={feature.description || ""}
                 onChange={(e) => {
@@ -437,6 +452,7 @@ const AdditionalFieldsForm: React.FC<Props> = ({ formState, onUpdate }) => {
               />
               {/* Feature Alt Text */}
               <input
+                maxLength={30}
                 className="form-control mb-1"
                 placeholder="Image Alt Text"
                 value={feature.alt || ""}
